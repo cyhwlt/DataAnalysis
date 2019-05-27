@@ -16,7 +16,7 @@ import java.util.List;
 public class DataCaculateService {
 
     public  List<HashMap<String, Object>> getResults(String sql) {
-//        this.jointSql(sql);
+        this.jointSql(sql);
         ArrayList<Map<String, Object>> lists = HiveSpark.sqlCaculate(sql);
         Iterator<Map<String, Object>> iterator = lists.iterator();
         List<HashMap<String, Object>> resultList = new ArrayList<>();
@@ -51,6 +51,6 @@ public class DataCaculateService {
         } else { // 多表关联通过where查询
 
         }
-        return null;
+        return sql;
     }
 }

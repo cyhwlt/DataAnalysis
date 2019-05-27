@@ -22,6 +22,7 @@ object HiveSpark {
       // 通过SparkSession
       val hive = SparkSession.builder().enableHiveSupport().config(conf).getOrCreate()
       val frame = hive.sql(sql)
+      frame.show()
       frame.collect().foreach(row => {
         val map = row.getValuesMap(frame.columns)
         list.add(map)
