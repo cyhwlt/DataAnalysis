@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DataAnalysis:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>DataAnalysis</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="DataAnalysis.war">
+      <element id="artifact" artifact-name="DataAnalysis:war exploded" />
+    </root>
+  </artifact>
+</component>

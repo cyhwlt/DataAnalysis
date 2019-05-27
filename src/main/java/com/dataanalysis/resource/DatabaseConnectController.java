@@ -1,33 +1,22 @@
 package com.dataanalysis.resource;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.dataanalysis.bean.ResultDto;
 import com.dataanalysis.bean.database.DatabaseDto;
 import com.dataanalysis.bean.database.DatabaseViewDto;
 import com.dataanalysis.bean.database.TableViewDto;
 import com.dataanalysis.service.DatabaseConnectService;
 import com.dataanalysis.utils.DBConnectUtil;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import oracle.jdbc.proxy.annotation.Post;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/database")
@@ -40,8 +29,7 @@ public class DatabaseConnectController {
 
 	/**
 	 * 测试数据库连接
-	 * 
-	 * @param dto数据库连接实体
+	 * @param dto 测试数据库连接
 	 * @return
 	 */
 	@PostMapping("/testConnect")
@@ -83,10 +71,10 @@ public class DatabaseConnectController {
 	 * 
 	 * @param dto
 	 * @return
-	 * @throws KettleDatabaseException
+	 * @throws
 	 * @throws SQLException
 	 */
-	@PostMapping("getDBs")
+	@PostMapping("/getDBs")
 	@ResponseBody
 	public ResponseEntity<ResultDto> getDBs(@RequestBody DatabaseDto dto) {
 		ResultDto resultDto = new ResultDto();
@@ -104,7 +92,7 @@ public class DatabaseConnectController {
 		}
 	}
 
-	@PostMapping("getdbs")
+	@PostMapping("/getdbs")
 	@ResponseBody
 	public ResponseEntity<ResultDto> getdbs(@RequestBody DatabaseDto dto) {
 		ResultDto resultDto = new ResultDto();

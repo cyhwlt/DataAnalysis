@@ -23,7 +23,7 @@ public class DataToHiveController {
 	 * 将数据源导入到hdfs:1、将要导入的数据库表写入脚本，2、执行生成的job
 	* @date 2019年5月9日
 	* @author chenyh
-	* @param jobInfo
+	* @param dto
 	 */
 	@PostMapping("/tohdfs")
 	public void dataToHdfs(@RequestBody DatabaseDto dto){

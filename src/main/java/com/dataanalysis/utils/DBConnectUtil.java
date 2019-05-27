@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.dataanalysis.bean.database.DatabaseDto;
 import com.dataanalysis.enums.DataBaseType;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class DBConnectUtil {
 
@@ -17,7 +17,7 @@ public class DBConnectUtil {
 	/**
 	 * 获取数据库连接信息
 	 * 
-	 * @param dto数据库连接实体
+	 * @param dto 数据库连接实体
 	 * @return
 	 */
 	public static Connection getConnection(DatabaseDto dto) {

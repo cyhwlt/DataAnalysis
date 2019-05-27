@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.dataanalysis.bean.database.DatabaseDto;
@@ -27,7 +27,7 @@ public class DatabaseConnectService {
 	/**
 	 * 获取数据库结构
 	 * 
-	 * @param dto实体
+	 * @param dto 实体
 	 * @return
 	 * @throws SQLException
 	 */
@@ -110,7 +110,7 @@ public class DatabaseConnectService {
 	
 	/**
 	 * 获取表和字段结构
-	 * @param dbDto数据库实体
+	 * @param dbDto 数据库实体
 	 * @return
 	 */
 	public List<TableViewDto> getTables(DatabaseDto dbDto) {

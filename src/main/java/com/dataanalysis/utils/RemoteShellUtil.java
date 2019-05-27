@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.dataanalysis.bean.database.DatabaseDto;
 
@@ -16,6 +14,8 @@ import ch.ethz.ssh2.ChannelCondition;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class RemoteShellUtil {
 
