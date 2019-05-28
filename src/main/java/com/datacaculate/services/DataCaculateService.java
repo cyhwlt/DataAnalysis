@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class DataCaculateService {
 
-    public  List<HashMap<String, Object>> getResults(String sql) {
-        this.jointSql(sql);
+    public  List<HashMap<String, Object>> getResults(String sql, String dbName) {
+        sql = this.jointSql(sql.toLowerCase(), dbName);
         ArrayList<Map<String, Object>> lists = HiveSpark.sqlCaculate(sql);
         Iterator<Map<String, Object>> iterator = lists.iterator();
         List<HashMap<String, Object>> resultList = new ArrayList<>();
@@ -29,27 +29,90 @@ public class DataCaculateService {
                 String key = iterator1.next();
                 Object value = map.get(key).get();
                 resultMap.put(key,value);
-//                System.out.println("====================================" + key + ":" + value);
             }
             resultList.add(resultMap);
         }
-
         return resultList;
-
     }
 
-    private String jointSql(String sql) {
-        String dbName = "zhilian_test";
-        String[] froms = sql.split("from");
-        String[] from1s = froms[1].split(" "); // from后面的sql通过空格分割
-        String[] tables = from1s[0].split(",");
-        if(froms[1].toLowerCase().contains("join")){ // 通过join进行表关联的处理
+    /**
+     * 拼接sql
+     * @param sql
+     * @param dbName
+     * @return
+     */
+    private String jointSql(String sql, String dbName) {
+        // 只替换from后的表名
+        String[] fromLatters = sql.split(" from ");
+        String fromLatter1 = fromLatters[1]; // from后的sql
+        StringBuilder sql1 = new StringBuilder();
+        if(fromLatter1.toLowerCase().contains(" join ")){
+            // 含有join的多表关联查询
+            String[] joins = fromLatter1.split(" join ");
+            for(int i=0; i<joins.length; i++) {
+                if(i == 0){
+                    sql1.append(dbName).append(".").append(joins[i].trim());
+                }else{
+                    String join = joins[i];
+                    if(join.contains(" on ")){
+                        String[] ons = join.split(" on ");
+                        sql1.append(" join ").append(dbName).append(".").append(ons[0].trim()).append(" on ").append(ons[1]);
+                    } else{
+                        sql1.append(" join ").append(dbName).append(".").append(joins[i].trim());
+                    }
+                }
+            }
+            sql = fromLatters[0] + " from " + sql1;
+        } else{
+            if(fromLatter1.contains(" in ")){
+                String[] ins = fromLatter1.split(" in ");
+                sql = dealsql(ins[0], fromLatters, dbName, sql);
+            } else {
+                sql = dealsql(fromLatter1, fromLatters, dbName, sql);
+                }
+            }
+        return sql;
+    }
 
-        } else if(tables.length == 1){ // 单表查询
-            String newTab = dbName + "." + tables[0];
-            sql.replace(tables[0], newTab);
-        } else { // 多表关联通过where查询
-
+    /**
+     * where多表关联公共代码提取
+     * @param in
+     * @param froms
+     * @param dbName
+     * @param sql
+     * @return
+     */
+    private String dealsql(String in,  String[] froms, String dbName, String sql){
+        if(!in.contains(",")){
+            // 只有一个表的查询
+            if(froms[1].contains(" where ")) {
+                String[] wheres = froms[1].split(" where ");
+                String table = wheres[0];
+                sql = froms[0] + " from " + dbName + "." + table.trim() + " where " + wheres[1];
+            } else if(froms[1].contains("group by")){
+                String[] groupbys = froms[1].split("group by");
+                String table = groupbys[0];
+                sql = froms[0] + " from " + dbName + "." + table.trim() + " group by " + groupbys[1];
+            } else if(froms[1].contains("order by")) {
+                String[] orderbys = froms[1].split("order by");
+                String table = orderbys[0];
+                sql = froms[0] + " from " + dbName + "." + table.trim() + " order by " + orderbys[1];
+            }
+        } else {
+            // 通过where的多表关联查询
+            String[] wheres = froms[1].split(" where ");
+            String tableStr = wheres[0];
+            String[] tables = tableStr.split(",");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < tables.length; i++) {
+                String table = dbName + "." + tables[i].trim();
+                if (i == tables.length - 1) {
+                    stringBuilder.append(table);
+                } else {
+                    stringBuilder.append(table).append(",");
+                }
+            }
+            sql = froms[0] + " from " + stringBuilder.toString() + " where " + wheres[1];
         }
         return sql;
     }

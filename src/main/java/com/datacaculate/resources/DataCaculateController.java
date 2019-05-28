@@ -22,8 +22,8 @@ public class DataCaculateController {
      * @param sql
      */
     @GetMapping("/getresults")
-    public List<HashMap<String, Object>> getResults(@RequestParam String sql){
-        List results = this.dcService.getResults(sql);
+    public List<HashMap<String, Object>> getResults(@RequestParam String sql, @RequestParam String dbName){
+        List results = this.dcService.getResults(sql, dbName);
         return results;
     }
 }
