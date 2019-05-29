@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c805270a-4b47-4f29-88ab-71e31d417c98" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dataanalysis/resource/DataToHiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dataanalysis/resource/DataToHiveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dataanalysis/service/DataToHiveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dataanalysis/service/DataToHiveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dataanalysis/service/DatabaseConnectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dataanalysis/service/DatabaseConnectService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dataanalysis/resource/DataToHiveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dataanalysis/resource/DataToHiveController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dataanalysis/service/DataToHiveService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dataanalysis/service/DataToHiveService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/dataanalysis/service/DatabaseConnectService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/dataanalysis/service/DatabaseConnectService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.dataanalysis/DataAnalysis/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.dataanalysis/DataAnalysis/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.dataanalysis/DataAnalysis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.dataanalysis/DataAnalysis/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c805270a-4b47-4f29-88ab-71e31d417c98" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="205" />
     <option name="y" value="328" />
     <option name="width" value="1400" />
@@ -79,11 +67,12 @@
       <workItem from="1559023557561" duration="16000" />
       <workItem from="1559098297173" duration="14000" />
       <workItem from="1559098372110" duration="46000" />
+      <workItem from="1559098432987" duration="789000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83000" />
+    <option name="totallyTimeSpent" value="872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
