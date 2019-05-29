@@ -1,16 +1,18 @@
 package com.dataanalysis.service;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.stringLiteralSequence_return;
+import org.apache.hadoop.io.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ import org.springframework.stereotype.Service;
 import com.dataanalysis.bean.LoadDataDto;
 import com.dataanalysis.bean.database.DatabaseDto;
 import com.dataanalysis.bean.database.FieldViewDto;
+import com.dataanalysis.bean.database.TableColInfoDto;
 import com.dataanalysis.bean.database.TableViewDto;
-import com.dataanalysis.enums.DataBaseType;
 import com.dataanalysis.utils.DBConnectUtil;
 import com.dataanalysis.utils.PropertyUtil;
 import com.dataanalysis.utils.RemoteShellUtil;
@@ -35,27 +37,30 @@ public class DataToHiveService {
 	String remotePort = property.getProperty("remoteport");
 	String remoteUser = property.getProperty("remoteuser");
 	String remotePassword = property.getProperty("remotepassword");
-	
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	@Autowired
 	private DatabaseConnectService dbcService;
 
+	/**
+	 * 关系型数据库导入hdfs
+	 * 
+	 * @param dto
+	 */
 	public void dataToHdfs(DatabaseDto dto) {
 		String jobPath = property.getProperty("datajob");
-		StringBuilder sBuilder = new StringBuilder();
-		jobPath = jobPath + dto.getDbName() + "_" + dto.getIp(); //linux下存放每个数据库所有表的文件夹
-		//创建脚本文件
+		jobPath = jobPath + dto.getDbName() + "_" + dto.getIp(); // linux下存放每个数据库所有表的文件夹
+		// 创建脚本文件
 		RemoteShellUtil rs = new RemoteShellUtil(remoteIp, remoteUser, remotePassword, "utf-8");
-		rs.exec("mkdir " + jobPath, true); //创建库文件夹
+		rs.exec("mkdir " + jobPath, true); // 创建库文件夹
 		String writeJob = jobPath + "/" + dto.getDbName() + ".sh";
 		logger.info(">>>>>>>>>>>>" + writeJob);
-		rs.exec("touch " + writeJob, true); //创建生成job的脚本文件
+		rs.exec("touch " + writeJob, true); // 创建生成job的脚本文件
 		logger.info(">>>>>>>touchFile成功");
-		List<String> tables = new ArrayList();
+		List<String> tables = new ArrayList<>();
 		List<String> tabInfos = new ArrayList<>();
-		
+
 		// 获取所有表
 		List<TableViewDto> tables2 = this.dbcService.getTables(dto);
 		for (TableViewDto tvDto : tables2) {
@@ -65,22 +70,22 @@ public class DataToHiveService {
 			sb.append(table).append(",");
 			List<FieldViewDto> fieldArr = tvDto.getFieldArr();
 			for (FieldViewDto fvDto : fieldArr) {
-				if(fvDto.getIsPK()){
+				if (fvDto.getIsPK()) {
 					sb.append(fvDto.getColName()).append(",");
 					break;
 				}
 			}
 			for (FieldViewDto fvDto : fieldArr) {
 				String typeName = fvDto.getTypeName();
-				if(typeName.toUpperCase().equals("DATETIME")){
+				if (typeName.toUpperCase().equals("DATETIME")) {
 					sb.append(fvDto.getColName());
 					break;
 				}
 			}
 			tabInfos.add(sb.toString());
 		}
-		
-		//写入sqoop命令行
+
+		// 写入sqoop命令行
 		for (String tabInfo : tabInfos) {
 			String sqoop = RemoteShellUtil.sqooptoHdfs(dto, tabInfo);
 			rs.exec("echo \t\"" + sqoop + "\" >> " + writeJob, true);
@@ -108,25 +113,34 @@ public class DataToHiveService {
 
 	}
 
+	/**
+	 * 将数据导入hive表
+	 * 
+	 * @param dto
+	 */
 	public void loadDataToHive(LoadDataDto dto) {
-		//连接hive
+		// 连接hive
 		Connection conn = DBConnectUtil.getConnection(dto.getHiveDb());
 		Statement cs = null;
 		try {
 			cs = conn.createStatement();
 			String partitionTime = sdf.format(new Date());
-			
-			List<String> tables = new ArrayList();
+
+			List<String> tables = new ArrayList<>();
 			// 获取所有表
 			List<TableViewDto> tables2 = this.dbcService.getTables(dto.getOriginDb());
 			for (TableViewDto tvDto : tables2) {
 				tables.add(tvDto.getTableName());
 			}
-			
+
 			cs.execute("use " + dto.getOriginDb().getDbName());
 			for (String table : tables) {
 				String path = "/user/hive/warehouse/" + dto.getOriginDb().getDbName() + "/" + table + "/*";
-				cs.execute("load data inpath '" + path + "' into table " + table + " partition(time_partition='" + partitionTime + "')");
+				cs.execute("load data inpath '" + path + "' into table " + table + " partition(time_partition='"
+						+ partitionTime + "')");
+
+				// 添加数据清洗代码
+
 			}
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -143,6 +157,7 @@ public class DataToHiveService {
 
 	/**
 	 * 创建hive表命令行拼接
+	 * 
 	 * @param dto
 	 * @param table
 	 * @return
@@ -179,10 +194,11 @@ public class DataToHiveService {
 
 	/**
 	 * 创建hive数据库
+	 * 
 	 * @param dto
 	 */
 	public void createHiveDatabase(DatabaseDto dto) {
-		// 连接hive	
+		// 连接hive
 		DatabaseDto databaseDto = DBConnectUtil.hiveDtoJoint(dto);
 		Connection conn = DBConnectUtil.getConnection(databaseDto);
 		Statement cs = null;
@@ -191,13 +207,13 @@ public class DataToHiveService {
 			cs.execute("create database if not exists " + dto.getDbName());
 			logger.error("创建hive数据库成功");
 		} catch (SQLException e) {
-			logger.error("创建hive数据库错误信息:"+e.getMessage());
+			logger.error("创建hive数据库错误信息:" + e.getMessage());
 		} finally {
 			try {
 				cs.close();
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("创建hive数据库错误信息:"+e.getMessage());
+				logger.error("创建hive数据库错误信息:" + e.getMessage());
 			}
 		}
 	}
@@ -209,7 +225,7 @@ public class DataToHiveService {
 	 */
 	public void createHiveTable(DatabaseDto dto) {
 		String jobPath = property.getProperty("datajob");
-		jobPath = jobPath + dto.getDbName() + "_" + dto.getIp(); //linux下存放每个数据库所有表的文件夹
+		jobPath = jobPath + dto.getDbName() + "_" + dto.getIp(); // linux下存放每个数据库所有表的文件夹
 		// 创建hive数据库
 		this.createHiveDatabase(dto);
 		StringBuilder sBuilder = new StringBuilder();
@@ -220,7 +236,7 @@ public class DataToHiveService {
 		rs.exec("touch " + script, true);
 		logger.info("createHiveTable>>>>>>>touchFile成功");
 		List<String> tables = new ArrayList<>();
-		
+
 		// 获取所有表
 		List<TableViewDto> tables2 = this.dbcService.getTables(dto);
 		for (TableViewDto tvDto : tables2) {
@@ -239,4 +255,63 @@ public class DataToHiveService {
 		rs.exec("sh " + script, true);
 		logger.info("createHiveTable>>>>>>>execSqoop成功");
 	}
+
+	/**
+	 * 数据清洗
+	 * 
+	 * @param dto
+	 */
+	public void dataClean(LoadDataDto dto) {
+
+		List<TableColInfoDto> tcDtos = this.dbcService.getColInfo(dto.getOriginDb());
+		for (TableColInfoDto tcDto : tcDtos) {
+			// 连接hive
+			Connection conn = DBConnectUtil.getConnection(dto.getHiveDb());
+			Statement cs = null;
+			try {
+				cs = conn.createStatement();
+				cs.execute("use " + dto.getOriginDb().getDbName());
+				String colNameStr = tcDto.getColNameStr(); // 所有字段拼接字符串
+				String colNameRemoveDateStr = ""; // 去除日期字段拼接字符串
+				int index = colNameStr.indexOf(tcDto.getDateColName());
+				String dateStr = colNameStr.substring(index, index + tcDto.getDateColName().length() + 1);
+				if (dateStr.contains(",")) {
+					colNameRemoveDateStr = colNameStr.replace(dateStr, "");
+				} else {
+					colNameRemoveDateStr = colNameStr.replace(tcDto.getDateColName(), "");
+				}
+
+				StringBuilder whereStr = new StringBuilder();
+				for (Map<String, String> m : tcDto.getFilterColName()) {
+					for (String k : m.keySet()) {
+						whereStr.append("t.");
+						whereStr.append(m.get(k));
+						whereStr.append(" IS NOT NULL");
+						whereStr.append(" and");
+					}
+				}
+				StringBuilder sBuilder = new StringBuilder();
+				sBuilder.append("insert overwrite table " + tcDto.getTableName());
+				sBuilder.append(" select " + colNameStr);
+				sBuilder.append(" from (select ").append(colNameRemoveDateStr).append(",").append("date_format(")
+						.append(tcDto.getDateColName()).append(",'yyyy-MM-dd HH:mm:ss')").append(tcDto.getDateColName())
+						.append(",row_number() over(partition by " + tcDto.getPkColName() + ") num from "
+								+ tcDto.getTableName() + ") t");
+				sBuilder.append(" where t.num=1 and ");
+				sBuilder.append(whereStr.toString().substring(0, whereStr.toString().length() - 3));
+				cs.execute(sBuilder.toString());
+			} catch (SQLException e) {
+				logger.error(e.getMessage());
+				e.printStackTrace();
+			} finally {
+				try {
+					cs.close();
+					conn.close();
+				} catch (SQLException e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}
+	}
+
 }

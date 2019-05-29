@@ -5,8 +5,11 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.nullCondition_return;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.dataanalysis.bean.database.DatabaseDto;
 import com.dataanalysis.bean.database.DatabaseViewDto;
 import com.dataanalysis.bean.database.FieldViewDto;
+import com.dataanalysis.bean.database.TableColInfoDto;
 import com.dataanalysis.bean.database.TableViewDto;
 import com.dataanalysis.enums.DataBaseType;
 import com.dataanalysis.utils.DBConnectUtil;
@@ -23,7 +27,6 @@ public class DatabaseConnectService {
 
 	private static Logger logger = LogManager.getLogger(DatabaseConnectService.class);
 
-	
 	/**
 	 * 获取数据库结构
 	 * 
@@ -107,9 +110,10 @@ public class DatabaseConnectService {
 		}
 		return dbs;
 	}
-	
+
 	/**
 	 * 获取表和字段结构
+	 * 
 	 * @param dbDto数据库实体
 	 * @return
 	 */
@@ -170,4 +174,47 @@ public class DatabaseConnectService {
 		}
 		return tables;
 	}
+
+	/**
+	 * 获取表主键日期字段信息
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public List<TableColInfoDto> getColInfo(DatabaseDto dto) {
+
+		List<TableColInfoDto> tcDtos = new ArrayList<>();
+		TableColInfoDto tcDto = new TableColInfoDto();
+		List<Map<String, String>> filterColName = new ArrayList<Map<String, String>>();
+
+		// 获取所有表
+		List<TableViewDto> tables = this.getTables(dto);
+		for (TableViewDto tvDto : tables) {
+			tcDto.setTableName(tvDto.getTableName());
+			List<FieldViewDto> fieldArr = tvDto.getFieldArr();
+			StringBuilder colName = new StringBuilder();// 所有字段
+			Map<String, String> colNameMap = new HashMap<>();
+			for (FieldViewDto fvDto : fieldArr) {
+				String typeName = fvDto.getTypeName();
+				if (fvDto.getIsPK()) {
+					tcDto.setPkColName(fvDto.getColName());
+				} else if (typeName.toUpperCase().equals("DATETIME")) {
+					tcDto.setDateColName(fvDto.getColName());
+					colNameMap.put("colName", fvDto.getColName());
+				}
+				colName.append(fvDto.getColName().toLowerCase());
+				colName.append(",");
+				// else if(fvDto.getColName().equals("totalNum")){
+				// colNameMap.put("colName", fvDto.getColName());
+				// } // 测试使用代码
+
+			}
+			filterColName.add(colNameMap);
+			tcDto.setColNameStr(colName.toString().substring(0, colName.toString().length() - 1));
+			tcDto.setFilterColName(filterColName);
+			tcDtos.add(tcDto);
+		}
+		return tcDtos;
+	}
+
 }
