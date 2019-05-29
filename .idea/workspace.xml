@@ -154,11 +154,21 @@
       <select />
     </treeState>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
     <option name="x" value="1910" />
     <option name="y" value="-488" />
     <option name="width" value="2579" />
     <option name="height" value="1409" />
+=======
+    <option name="x" value="205" />
+    <option name="y" value="328" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -167,6 +177,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+<<<<<<< HEAD
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -221,6 +232,13 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelWidth2" value="75" />
+=======
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -302,27 +320,45 @@
       <option name="presentableId" value="Default" />
       <updated>1557456697541</updated>
       <workItem from="1557456698875" duration="7000" />
+<<<<<<< HEAD
       <workItem from="1558926556522" duration="1426000" />
       <workItem from="1558928325467" duration="19231000" />
       <workItem from="1559009177284" duration="4067000" />
+=======
+      <workItem from="1559023557561" duration="16000" />
+      <workItem from="1559098297173" duration="14000" />
+      <workItem from="1559098372110" duration="46000" />
+      <workItem from="1559098432987" duration="789000" />
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="24731000" />
+=======
+    <option name="totallyTimeSpent" value="872000" />
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="-485" width="2062" height="1126" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.119760476" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25424576" />
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+<<<<<<< HEAD
       <window_info id="Web" order="7" side_tool="true" />
+=======
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.35211268" />
@@ -335,19 +371,29 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Spring" order="12" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.3286119" />
+=======
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
+<<<<<<< HEAD
       <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.21806388" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" />
+=======
+      <window_info anchor="right" id="Maven" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+>>>>>>> a33f0ebee7b6f4fc6b943fcda828b31e59b3cc63
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
