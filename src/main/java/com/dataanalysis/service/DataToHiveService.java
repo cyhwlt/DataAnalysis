@@ -312,4 +312,18 @@ public class DataToHiveService {
 		}
 	}
 
+	public void importToHive(DatabaseDto dto) {
+		// 1、将数据导入hdfs
+		this.dataToHdfs(dto);
+		// 2、创建hive分区表
+		this.createHiveTable(dto);
+		DatabaseDto hiveDto = DBConnectUtil.hiveDtoJoint(dto);
+		LoadDataDto loadDataDto = new LoadDataDto();
+		loadDataDto.setHiveDb(hiveDto);
+		loadDataDto.setOriginDb(dto);
+		// 3、将数据load到hive数据库
+		this.loadDataToHive(loadDataDto);
+		// 4、数据简单清洗
+		this.dataClean(loadDataDto);
+	}
 }

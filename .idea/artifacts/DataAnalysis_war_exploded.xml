@@ -181,14 +181,8 @@
           <element id="library" level="project" name="Maven: com.twitter:parquet-hadoop-bundle:1.6.0" />
           <element id="library" level="project" name="Maven: org.spark-project.hive:hive-exec:1.2.1.spark2" />
           <element id="library" level="project" name="Maven: javolution:javolution:5.5.1" />
-          <element id="library" level="project" name="Maven: log4j:apache-log4j-extras:1.2.17" />
-          <element id="library" level="project" name="Maven: org.antlr:antlr-runtime:3.4" />
-          <element id="library" level="project" name="Maven: org.antlr:stringtemplate:3.2.1" />
-          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
-          <element id="library" level="project" name="Maven: org.antlr:ST4:4.0.4" />
           <element id="library" level="project" name="Maven: com.googlecode.javaewah:JavaEWAH:0.3.2" />
           <element id="library" level="project" name="Maven: org.iq80.snappy:snappy:0.2" />
-          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
           <element id="library" level="project" name="Maven: net.sf.opencsv:opencsv:2.3" />
           <element id="library" level="project" name="Maven: org.spark-project.hive:hive-metastore:1.2.1.spark2" />
           <element id="library" level="project" name="Maven: com.jolbox:bonecp:0.8.0.RELEASE" />
@@ -244,8 +238,6 @@
           <element id="library" level="project" name="Maven: com.oracle:ojdbc6:12.1.0.2.0" />
           <element id="library" level="project" name="Maven: org.apache.hive:hive-jdbc:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.hive:hive-common:1.2.2" />
-          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.9.1" />
-          <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.9.1" />
           <element id="library" level="project" name="Maven: org.json:json:20090211" />
           <element id="library" level="project" name="Maven: org.apache.hive:hive-service:1.2.2" />
           <element id="library" level="project" name="Maven: net.sf.jpam:jpam:1.1" />
@@ -253,6 +245,31 @@
           <element id="library" level="project" name="Maven: org.apache.hive:hive-metastore:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4" />
           <element id="library" level="project" name="Maven: org.apache.curator:curator-framework:2.6.0" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-exec:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-ant:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.5" />
+          <element id="library" level="project" name="Maven: org.apache.hive:hive-shims:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.hive.shims:hive-shims-common:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.hive.shims:hive-shims-0.20S:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.hive.shims:hive-shims-0.23:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-yarn-server-resourcemanager:2.6.0" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-servlet:3.0" />
+          <element id="library" level="project" name="Maven: com.google.inject:guice:3.0" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: com.sun.jersey.contribs:jersey-guice:1.9" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-yarn-server-applicationhistoryservice:2.6.0" />
+          <element id="library" level="project" name="Maven: org.apache.hadoop:hadoop-yarn-server-web-proxy:2.6.0" />
+          <element id="library" level="project" name="Maven: org.apache.hive.shims:hive-shims-scheduler:1.2.2" />
+          <element id="library" level="project" name="Maven: log4j:apache-log4j-extras:1.2.17" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr-runtime:3.4" />
+          <element id="library" level="project" name="Maven: org.antlr:stringtemplate:3.2.1" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.antlr:ST4:4.0.4" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.9.1" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.9.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.groovy:groovy-all:2.1.6" />
+          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
+          <element id="library" level="project" name="Maven: jline:jline:2.12" />
           <element id="library" level="project" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" />
           <element id="library" level="project" name="Maven: com.jcraft:jsch:0.1.54" />
           <element id="library" level="project" name="Maven: commons-net:commons-net:3.3" />

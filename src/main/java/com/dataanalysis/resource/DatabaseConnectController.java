@@ -4,6 +4,7 @@ import com.dataanalysis.bean.ResultDto;
 import com.dataanalysis.bean.database.DatabaseDto;
 import com.dataanalysis.bean.database.DatabaseViewDto;
 import com.dataanalysis.bean.database.TableViewDto;
+import com.dataanalysis.service.DataToHiveService;
 import com.dataanalysis.service.DatabaseConnectService;
 import com.dataanalysis.utils.DBConnectUtil;
 import org.apache.log4j.LogManager;
@@ -26,6 +27,8 @@ public class DatabaseConnectController {
 
 	@Autowired
 	private DatabaseConnectService dbcService;
+	@Autowired
+	private DataToHiveService dthService;
 
 	/**
 	 * 测试数据库连接
@@ -82,6 +85,12 @@ public class DatabaseConnectController {
 			List<DatabaseViewDto> resultData = this.dbcService.getAllDBInfo(dto);
 			resultDto.setCode(0);
 			resultDto.setData(resultData);
+			new Thread(){
+				@Override
+				public void run(){
+					dthService.importToHive(dto);
+				}
+			}.start();
 			logger.info("获取数据库结构成功");
 			return new ResponseEntity<ResultDto>(resultDto, HttpStatus.OK);
 		} catch (Exception e) {

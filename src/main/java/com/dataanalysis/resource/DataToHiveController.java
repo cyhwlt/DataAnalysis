@@ -58,18 +58,7 @@ public class DataToHiveController {
 	 */
 	@PostMapping("/importtohive")
 	public void importToHive(@RequestBody DatabaseDto dto) {
-		// 1、将数据导入hdfs
-		this.dthService.dataToHdfs(dto);
-		// 2、创建hive分区表
-		this.dthService.createHiveTable(dto);
-		DatabaseDto hiveDto = DBConnectUtil.hiveDtoJoint(dto);
-		LoadDataDto loadDataDto = new LoadDataDto();
-		loadDataDto.setHiveDb(hiveDto);
-		loadDataDto.setOriginDb(dto);
-		// 3、将数据load到hive数据库
-		this.dthService.loadDataToHive(loadDataDto);
-		// 4、数据简单清洗
-		this.dthService.dataClean(loadDataDto);
+		this.dthService.importToHive(dto);
 	}
 
 	/**
