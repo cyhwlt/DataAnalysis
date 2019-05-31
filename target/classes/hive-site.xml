@@ -380,7 +380,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
-    <value>soyuan.123</value>
+    <value>123456</value>
     <description>password to use against metastore database</description>
   </property>
   <property>
@@ -395,7 +395,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://172.16.101.29:3306/hive?useSSL=false</value>
+    <value>jdbc:mysql://172.16.101.33:3306/hive?useSSL=false</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
   <property>

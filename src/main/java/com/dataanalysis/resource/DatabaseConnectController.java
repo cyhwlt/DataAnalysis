@@ -88,6 +88,8 @@ public class DatabaseConnectController {
 			new Thread(){
 				@Override
 				public void run(){
+//					dto.setDbName("es001");
+					dto.setDbName("Edu_ZKT");
 					dthService.importToHive(dto);
 				}
 			}.start();

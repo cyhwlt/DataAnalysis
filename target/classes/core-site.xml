@@ -24,7 +24,7 @@
         </property>
         <property>
              <name>fs.defaultFS</name>
-             <value>hdfs://172.16.101.29:9000</value>
+             <value>hdfs://172.16.101.33:9000</value>
 	     <description>该属性用来指定namenode的hdfs协议的文件系统通信地址</description>
         </property>
 	<property>

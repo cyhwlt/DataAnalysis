@@ -11,11 +11,11 @@ import java.util.Map;
  */
 public class TableColInfoDto {
 
-	public String tableName; // 表名
-	public String pkColName; // 主键字段
-	public String dateColName; // 日期字段
-	public String colNameStr; // 所有字段拼接字符串
-	public List<Map<String, String>> filterColName; // 筛选字段
+	private String tableName; // 表名
+	private String pkColName; // 主键字段
+	private String dateColName; // 日期字段
+	private String colNameStr; // 所有字段拼接字符串
+	private List<Map<String, String>> filterColName; // 筛选字段
 
 	public String getTableName() {
 		return tableName;

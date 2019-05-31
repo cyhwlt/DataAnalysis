@@ -89,6 +89,7 @@ public class RemoteShellUtil {
 		switch(dto.getDataBaseType()){
 		case Oracle:
 			sBuilder.append(tabs[0]);
+			sBuilder.append(" --meta-connect jdbc:hsqldb:hsql://172.16.101.33:16000/sqoop");
 			sBuilder.append(" -- import --connect ").append("jdbc:oracle:thin:@").append(dto.getIp()).append(":").append(dto.getPort()).append(":").append(dto.getServerName());
 			sBuilder.append(" --username ").append(dto.getUserName());
 			sBuilder.append(" --password ").append(dto.getPassword());
@@ -104,6 +105,7 @@ public class RemoteShellUtil {
 			break;
 		case SQLServer:
 			sBuilder.append(tabs[0]);
+			sBuilder.append(" --meta-connect jdbc:hsqldb:hsql://172.16.101.33:16000/sqoop");
 			sBuilder.append(" -- import --connect 'jdbc:sqlserver://").append(dto.getIp()).append(";username=").append(dto.getUserName());
 			sBuilder.append(";password=").append(dto.getPassword()).append(";database=").append(dto.getDbName()).append("'");
 			sBuilder.append(" --table ").append(tabs[0]);
@@ -118,6 +120,7 @@ public class RemoteShellUtil {
 			break;
 		case MySQL:
 			sBuilder.append(tabs[0]);
+			sBuilder.append(" --meta-connect jdbc:hsqldb:hsql://172.16.101.33:16000/sqoop");
 			sBuilder.append(" -- import --connect ").append("jdbc:mysql://").append(dto.getIp()).append(":").append(dto.getPort());
 			sBuilder.append("/");
 			sBuilder.append(dto.getDbName());

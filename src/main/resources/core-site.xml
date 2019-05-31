@@ -17,19 +17,24 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-	<property>
-             <name>hadoop.tmp.dir</name>
-             <value>file:/kylin/hadoop-2.6.0/tmp</value>
-             <description>指定hadoop临时目录，file表示本地目录</description>
-        </property>
-        <property>
-             <name>fs.defaultFS</name>
-             <value>hdfs://172.16.101.29:9000</value>
-	     <description>该属性用来指定namenode的hdfs协议的文件系统通信地址</description>
-        </property>
-	<property>
-	     <name>io.file.buffer.size</name>
-	     <value>131072</value>
-	     <description>指定执行文件io缓冲区的大小</description>
-	</property>
+<property>
+     <name>fs.defaultFS</name>
+     <value>hdfs://172.16.101.32:9000</value>
+  </property>
+  <property>
+     <name>hadoop.tmp.dir</name>
+     <value>file:/kylin/hadoop2.6.0/tmp</value>
+  </property>
+  <property>
+     <name>io.file.buffer.size</name>
+     <value>131702</value>
+  </property>
+<property>
+    <name>hadoop.proxyuser.hadoop.hosts</name>
+    <value>*</value>
+</property>
+<property>
+    <name>hadoop.proxyuser.hadoop.groups</name>
+    <value>*</value>
+</property>
 </configuration>
