@@ -85,14 +85,29 @@ public class DatabaseConnectController {
 			List<DatabaseViewDto> resultData = this.dbcService.getAllDBInfo(dto);
 			resultDto.setCode(0);
 			resultDto.setData(resultData);
-			new Thread(){
-				@Override
-				public void run(){
-//					dto.setDbName("es001");
-					dto.setDbName("Edu_ZKT");
-					dthService.importToHive(dto);
-				}
-			}.start();
+
+			List<DatabaseDto> dtos = new ArrayList<>();
+			for (DatabaseViewDto dvDto: resultData) {
+				DatabaseDto newDto = new DatabaseDto();
+				newDto.setIp(dto.getIp());
+				newDto.setPort(dto.getPort());
+				newDto.setUserName(dto.getUserName());
+				newDto.setPassword(dto.getPassword());
+				newDto.setDataBaseType(dto.getDataBaseType());
+				newDto.setDbName(dvDto.getDbName());
+				dtos.add(newDto);
+			}
+			dthService.importToHive(dtos);
+//			new Thread(){
+//				@Override
+//				public void run(){
+					/*for (DatabaseViewDto dvDto: resultData) {
+						dto.setDbName(dvDto.getDbName());
+						dthService.importToHive(dto);
+					}*/
+//					dthService.importToHive(dtos);
+//				}
+//			}.start();
 			logger.info("获取数据库结构成功");
 			return new ResponseEntity<ResultDto>(resultDto, HttpStatus.OK);
 		} catch (Exception e) {

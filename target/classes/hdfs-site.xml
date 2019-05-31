@@ -17,23 +17,16 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-	<property>
-             <name>dfs.replication</name>
-             <value>2</value>
-	     <!--指定hdfs保存数据的副本数量-->
-        </property>
-	<property>
-	     <name>dfs.block.size</name>
-	     <value>32000000</value>
-	</property>
-        <property>
-             <name>dfs.namenode.name.dir</name>
-             <value>file:/kylin/hadoop/tmp/dfs/name</value>
-	     <!--指定hdfs中namenode的存储位置-->
-        </property>
-        <property>
-             <name>dfs.datanode.data.dir</name>
-             <value>file:/kylin/hadoop/tmp/dfs/data</value>
-	     <!--指定hdfs中datanode的存储位置 -->
-        </property>
+<property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:/kylin/hadoop2.6.0/hdfs/name</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:/kylin/hadoop2.6.0/hdfs/data</value>
+    </property>
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
 </configuration>

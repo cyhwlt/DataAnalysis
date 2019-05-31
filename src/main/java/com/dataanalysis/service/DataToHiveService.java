@@ -14,6 +14,7 @@ import java.util.Properties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.dataanalysis.bean.LoadDataDto;
@@ -103,7 +104,7 @@ public class DataToHiveService {
         for (int i = 0; i < tables.size(); i++) {
 
             rs.exec("touch " + execJob, true); // 创建执行job的脚本文件
-            rs.exec("echo \t\"sqoop job --exec " + tables.get(i) + " --meta-connect jdbc:hsqldb:hsql://172.16.101.33:16000/sqoop" + "\" >> " + execJob, true); // 将执行job的命令行写入脚本
+            rs.exec("echo \t\"sqoop job --exec " + tables.get(i) + "\" >> " + execJob, true); // 将执行job的命令行写入脚本
         }
         rs.exec("chmod 777 " + execJob, true);
         rs.exec("sh " + execJob, false);
@@ -270,11 +271,12 @@ public class DataToHiveService {
                 String colNameStr = tcDto.getColNameStr(); // 所有字段拼接字符串
                 String colNameRemoveDateStr = ""; // 去除日期字段拼接字符串
                 int index = colNameStr.indexOf(tcDto.getDateColName());
-                String dateStr = colNameStr.substring(index, index + tcDto.getDateColName().length() + 1);
+                String dateStr = colNameStr.substring(index, index + tcDto.getDateColName().length());
                 if (dateStr.contains(",")) {
                     colNameRemoveDateStr = colNameStr.replace(dateStr, "");
                 } else {
                     colNameRemoveDateStr = colNameStr.replace(tcDto.getDateColName(), "");
+                    colNameRemoveDateStr = colNameRemoveDateStr.substring(0,colNameRemoveDateStr.length()-1);
                 }
 
                 StringBuilder whereStr = new StringBuilder();
@@ -283,7 +285,7 @@ public class DataToHiveService {
                         whereStr.append("t.");
                         whereStr.append(m.get(k));
                         whereStr.append(" IS NOT NULL");
-                        whereStr.append(" and");
+                        whereStr.append(" and ");
                     }
                 }
                 String partitionTime = sdf.format(new Date());
@@ -295,7 +297,7 @@ public class DataToHiveService {
                         .append(",row_number() over(partition by " + tcDto.getPkColName() + ") num from "
                                 + tcDto.getTableName() + ") t");
                 sBuilder.append(" where t.num=1 and ");
-                sBuilder.append(whereStr.toString().substring(0, whereStr.toString().length() - 3));
+                sBuilder.append(whereStr.toString().substring(0, whereStr.toString().length() - 4));
                 cs.execute(sBuilder.toString());
             } catch (SQLException e) {
                 logger.error(e.getMessage());
@@ -314,20 +316,23 @@ public class DataToHiveService {
     /**
      * 将关系型数据库导入hive
      *
-     * @param dto
+     * @param dtos
      */
-    public void importToHive(DatabaseDto dto) {
-        // 1、将数据导入hdfs
-        this.dataToHdfs(dto);
-        // 2、创建hive分区表
-        this.createHiveTable(dto);
-        DatabaseDto hiveDto = DBConnectUtil.hiveDtoJoint(dto);
-        LoadDataDto loadDataDto = new LoadDataDto();
-        loadDataDto.setHiveDb(hiveDto);
-        loadDataDto.setOriginDb(dto);
-        // 3、将数据load到hive数据库
-        this.loadDataToHive(loadDataDto);
-        // 4、数据简单清洗
-        this.dataClean(loadDataDto);
+    @Async
+    public void importToHive(List<DatabaseDto> dtos) {
+        for (DatabaseDto dto: dtos) {
+            // 1、将数据导入hdfs
+            this.dataToHdfs(dto);
+            // 2、创建hive分区表
+            this.createHiveTable(dto);
+            DatabaseDto hiveDto = DBConnectUtil.hiveDtoJoint(dto);
+            LoadDataDto loadDataDto = new LoadDataDto();
+            loadDataDto.setHiveDb(hiveDto);
+            loadDataDto.setOriginDb(dto);
+            // 3、将数据load到hive数据库
+            this.loadDataToHive(loadDataDto);
+            // 4、数据简单清洗
+            this.dataClean(loadDataDto);
+        }
     }
 }

@@ -23,7 +23,6 @@ public class DataToHiveController {
 	 * 
 	 * @date 2019年5月9日
 	 * @author chenyh
-	 * @param jobInfo
 	 */
 	@PostMapping("/tohdfs")
 	public void dataToHdfs(@RequestBody DatabaseDto dto) {
@@ -58,7 +57,7 @@ public class DataToHiveController {
 	 */
 	@PostMapping("/importtohive")
 	public void importToHive(@RequestBody DatabaseDto dto) {
-		this.dthService.importToHive(dto);
+//		this.dthService.importToHive(dto);
 	}
 
 	/**

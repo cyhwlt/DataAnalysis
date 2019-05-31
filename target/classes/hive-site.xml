@@ -49,14 +49,12 @@
   </property>
   <property>
     <name>hive.exec.local.scratchdir</name>
-    <!--<value>${system:java.io.tmpdir}/${system:user.name}</value>-->
-    <value>/kylin/hive-1.2.2/tmp</value>
+    <value>/kylin/hive1.2.2/tmp</value>
     <description>Local scratch space for Hive jobs</description>
   </property>
   <property>
     <name>hive.downloaded.resources.dir</name>
-    <!--<value>${system:java.io.tmpdir}/${hive.session.id}_resources</value>-->
-    <value>/kylin/hive-1.2.2/tmp</value>
+    <value>/kylin/hive1.2.2/tmp</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
   </property>
   <property>
@@ -106,7 +104,7 @@
   </property>
   <property>
     <name>hive.exec.compress.output</name>
-    <value>true</value>
+    <value>false</value>
     <description>
       This controls whether the final outputs of a query (to a local/HDFS file or a Hive table) is compressed. 
       The compression codec and other options are determined from Hadoop config variables mapred.output.compress*
@@ -232,7 +230,7 @@
   </property>
   <property>
     <name>hive.exec.max.dynamic.partitions.pernode</name>
-    <value>500</value>
+    <value>100</value>
     <description>Maximum number of dynamic partitions allowed to be created in each mapper/reducer node.</description>
   </property>
   <property>
@@ -339,7 +337,7 @@
   </property>
   <property>
     <name>hive.metastore.uris</name>
-    <value/>
+    <value>thrift://172.16.101.32:9083</value>
     <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
   </property>
   <property>
@@ -395,7 +393,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://172.16.101.33:3306/hive?useSSL=false</value>
+    <value>jdbc:mysql://172.16.101.32:3306/hive?useSSL=false</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
   <property>
@@ -1319,8 +1317,7 @@
   </property>
   <property>
     <name>hive.querylog.location</name>
-    <!--<value>${system:java.io.tmpdir}/${system:user.name}</value>-->
-    <value>/kylin/hive-1.2.2/tmp</value>
+    <value>/kylin/hadoop2.6.0/tmp</value>
     <description>Location of Hive run time structured log file</description>
   </property>
   <property>
@@ -1460,7 +1457,7 @@
   </property>
   <property>
     <name>hive.merge.mapredfiles</name>
-    <value>true</value>
+    <value>false</value>
     <description>Merge small files at the end of a map-reduce job</description>
   </property>
   <property>
@@ -1731,7 +1728,7 @@
   </property>
   <property>
     <name>hive.auto.convert.join.noconditionaltask.size</name>
-    <value>300000000</value>
+    <value>10000000</value>
     <description>
       If hive.auto.convert.join.noconditionaltask is off, this parameter does not take affect. 
       However, if it is on, and the sum of size for n-1 of the tables/partitions for a n-way join is smaller than this size, 
@@ -1893,7 +1890,7 @@
   </property>
   <property>
     <name>hive.enforce.bucketing</name>
-    <value>true</value>
+    <value>false</value>
     <description>Whether bucketing is enforced. If true, while inserting into the table, bucketing is enforced.</description>
   </property>
   <property>
@@ -2639,7 +2636,7 @@
   </property>
   <property>
     <name>hive.fetch.task.conversion</name>
-    <value>minimal</value>
+    <value>more</value>
     <description>
       Expects one of [none, minimal, more].
       Some select queries can be converted to single FETCH task minimizing latency.
@@ -2912,8 +2909,7 @@
   </property>
   <property>
     <name>hive.server2.logging.operation.log.location</name>
-    <!--<value>${system:java.io.tmpdir}/${system:user.name}/operation_logs</value>-->
-    <value>/kylin/hive-1.2.2/tmp/${system:user.name}/operation_logs</value>
+    <value>/kylin/hive1.2.2/tmp/operation_logs</value>
     <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
   </property>
   <property>
@@ -3097,7 +3093,7 @@
   </property>
   <property>
     <name>hive.server2.thrift.bind.host</name>
-    <value/>
+    <value>172.16.101.32</value>
     <description>Bind host on which to run the HiveServer2 Thrift service.</description>
   </property>
   <property>

@@ -50,12 +50,14 @@ public class DatabaseConnectService {
 							&& (!dbRs.getString("TABLE_CAT").contains("sys"))) {
 						DatabaseViewDto dbViewDto = new DatabaseViewDto();
 
-						dbViewDto.setDbName(dbRs.getString("TABLE_CAT"));
-						// 获取表、字段结构
-						dto.setDbName(dbRs.getString("TABLE_CAT"));
-						tables = this.getTables(dto);
-						dbViewDto.setTableArr(tables);
-						dbs.add(dbViewDto);
+						if(!dbRs.getString("TABLE_CAT").equals("hive")){
+							dbViewDto.setDbName(dbRs.getString("TABLE_CAT"));
+							// 获取表、字段结构
+							dto.setDbName(dbRs.getString("TABLE_CAT"));
+							tables = this.getTables(dto);
+							dbViewDto.setTableArr(tables);
+							dbs.add(dbViewDto);
+						}
 
 					}
 				}
