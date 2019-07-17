@@ -1,2 +1,2 @@
 # DataAnalysis
-Big Data Analysis Project
+一个将mysql,sqlserver,oracle,excel中的数据通过sqoop抽取到hdfs中，再从hdfs中定时到hive中，并提供hive的查询
